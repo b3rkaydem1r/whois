@@ -1,0 +1,21 @@
+.body{
+  background: rgb(240, 240, 240);
+}
+.title{
+  font-size: 2.25rem;
+  letter-spacing: -.049375rem;
+  font-weight: 600;
+}
+.footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+.innerData{
+  display: block;
+}
+a{
+  color: #0076ff;
+}
