@@ -66,36 +66,32 @@ export default class App extends Component {
           <div className="col-md-4 col-2"/>
         </div>
         {this.state.data !== undefined ? this.state.data.dataError === undefined ?
-        <div className="row">
-        <table className="table table-borderless mt-5 col-md-6 col-12">
-          <tbody>
-            <tr>
+        <div>
+        <table className="table table-borderless mt-5">
+          <tbody className="row">
+            <tr className="col-md-6 col-12">
               <th scope="row">domainName</th>
               <td><a href={'http://' + this.state.data.domainName} target="_blank" rel="noopener noreferrer">{this.state.data.domainName}</a></td>
             </tr>
-            <tr>
+            <tr className="col-md-6 col-12">
               <th scope="row">organization</th>
               {this.state.primary ? <td>{this.state.data.registrant.organization}</td> : this.state.data.registryData.registrant.organization ? <td>{this.state.data.registryData.registrant.organization}</td> : undefined}
             </tr>
-            <tr>
+            <tr className="col-md-6 col-12">
               <th scope="row">createdDate</th>
               {this.state.primary ? <td>{this.state.data.createdDateNormalized}</td> : this.state.data.registryData.createdDateNormalized ? <td>{this.state.data.registryData.createdDateNormalized}</td> : undefined}
             </tr>
-          </tbody>
-        </table>
-        <table className="table table-borderless mt-md-5 col-md-6 col-12">
-          <tbody>
-            <tr>
+            <tr className="col-md-6 col-12">
               <th scope="row">updatedDate</th>
               {this.state.primary ? <td>{this.state.data.updatedDateNormalized}</td> : this.state.data.registryData.updatedDateNormalized ? <td>{this.state.data.registryData.updatedDateNormalized}</td> : undefined}
             </tr>
-            <tr>
+            <tr className="col-md-6 col-12">
               <th scope="row">expiresDate</th>
               {this.state.primary ? <td>{this.state.data.expiresDateNormalized}</td> : this.state.data.registryData.expiresDateNormalized ? <td>{this.state.data.registryData.expiresDateNormalized}</td> : undefined}
             </tr>
-            <tr>
+            <tr className="col-md-6 col-12">
               <th scope="row">nameServers</th>
-              {this.state.primary ? <td>{this.state.data.nameServers.rawText}</td> : this.state.data.registryData.nameServers.rawText ? <td>{this.state.data.registryData.nameServers.rawText}</td> : undefined}
+              {this.state.primary ? <td className="nameServers">{this.state.data.nameServers.rawText}</td> : this.state.data.registryData.nameServers.rawText ? <td className="nameServers">{this.state.data.registryData.nameServers.rawText}</td> : undefined}
             </tr>
           </tbody>
         </table>

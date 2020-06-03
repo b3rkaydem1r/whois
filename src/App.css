@@ -16,6 +16,12 @@
 .innerData{
   display: block;
 }
+.nameServers{
+  font-size: 0.9rem;
+}
 a{
   color: #0076ff;
+}
+table{
+  text-align: justify;
 }
