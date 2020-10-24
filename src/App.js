@@ -28,8 +28,10 @@ export default class App extends Component {
       this.toggleActivityIndicator('show');
       fetch(API_URL + text)
       .then(response => response.json())
-      .then(data => this.setState({data: data.WhoisRecord, primary: true}))
-      this.toggleActivityIndicator('hide')
+      .then(data => {
+        this.setState({data: data.WhoisRecord, primary: true})
+        this.toggleActivityIndicator('hide')
+      })
       this.setState({
         page: false
       })
@@ -38,8 +40,10 @@ export default class App extends Component {
       this.toggleActivityIndicator('show');
       fetch(API_URL + text)
       .then(response => response.json())
-      .then(data => this.setState({data: data.WhoisRecord, primary: false}))
-      this.toggleActivityIndicator('hide');
+      .then(data => {
+        this.setState({data: data.WhoisRecord, primary: false})
+        this.toggleActivityIndicator('hide')
+      })
       this.setState({
         page: false
       })
@@ -52,15 +56,13 @@ export default class App extends Component {
       // Already fetched!
     }
     else{
-      console.log("fetching")
       fetch(API_URL + this.state.value)
       .then(response => response.json())
-      .then(data => this.setState({data: data.WhoisRecord, primary: false}))
-      this.setState({
-          page: false,
-        })
+      .then(data => {
+        this.setState({data: data.WhoisRecord, primary: false, page: false})
+        this.toggleActivityIndicator('hide')
+      })
     }
-    this.toggleActivityIndicator('hide');
   }
   render() {
     const { loading } = this.state;
@@ -115,7 +117,7 @@ export default class App extends Component {
           </tbody>
         </table>
         </div>
-        : <Button className="mt-4" href={"https://tr.godaddy.com/domainsearch/find?domainToCheck=" + this.state.data.domainName} variant="success" target="_blank">Buy Now</Button>  : this.state.page ? null : <p className="mt-4">No such domain name!</p>}
+        : <Button className="mt-4" href={"https://tr.godaddy.com/domainsearch/find?domainToCheck=" + this.state.data.domainName} variant="success" target="_blank">Buy Now</Button>  : this.state.page ? null : null}
         <div className="my-5">
           <span className="text-muted">WhoisNET is using <a href="https://www.whoisxmlapi.com" target="_blank" rel="noopener noreferrer">whoisxmlapi.com</a> and deployed with <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a></span><br/>
           <span className="text-muted">The API has 500 request limits per month. If it doesn't work, this may be the reason.</span>
