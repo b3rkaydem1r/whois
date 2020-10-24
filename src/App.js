@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faNetworkWired } from '@fortawesome/free-solid-svg-icons'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -14,22 +15,31 @@ export default class App extends Component {
     data: undefined,
     page: true
   }
+  toggleActivityIndicator(status){
+    const spinnerState = status === 'show' ? 'inline-block' : 'none';
+    document.getElementsByClassName('loading')[0].style.display = spinnerState;
+  }
+
   domain(text){
     this.setState({
       value: text
     })
     if(text.includes('.com') ||  text.includes('.net')){
+      this.toggleActivityIndicator('show');
       fetch(API_URL + text)
       .then(response => response.json())
       .then(data => this.setState({data: data.WhoisRecord, primary: true}))
+      this.toggleActivityIndicator('hide')
       this.setState({
         page: false
       })
     }
     else if(text.includes('.org')){
+      this.toggleActivityIndicator('show');
       fetch(API_URL + text)
       .then(response => response.json())
       .then(data => this.setState({data: data.WhoisRecord, primary: false}))
+      this.toggleActivityIndicator('hide');
       this.setState({
         page: false
       })
@@ -37,19 +47,23 @@ export default class App extends Component {
   }
   onFormSubmit = e => {
     e.preventDefault()
+    this.toggleActivityIndicator('show');
     if(this.state.value.includes('.com') || this.state.value.includes('.org') || this.state.value.includes('.net')){
       // Already fetched!
     }
     else{
+      console.log("fetching")
       fetch(API_URL + this.state.value)
       .then(response => response.json())
       .then(data => this.setState({data: data.WhoisRecord, primary: false}))
       this.setState({
-        page: false
-      })
-    }   
+          page: false,
+        })
+    }
+    this.toggleActivityIndicator('hide');
   }
   render() {
+    const { loading } = this.state;
     return (
       <div className="container text-center mt-5">
         <h1 className="title">WhoisNET <FontAwesomeIcon icon={faNetworkWired} /></h1>
@@ -58,8 +72,13 @@ export default class App extends Component {
           <div className="innerData col-md-4 col-8">
             <form onSubmit={this.onFormSubmit}>
               <div className="form-group">
-                <input type="text" className="form-control" value={this.state.value}
-                onChange={(value) => this.domain(value.target.value)} placeholder="domain.com"/>
+                <input
+                  type="text" className="form-control" value={this.state.value}
+                  onChange={(value) => this.domain(value.target.value)}
+                  placeholder="domain.com"/>
+                <Spinner animation="border" role="status" style={{display:'none'}} className="loading">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
               </div>
             </form>
           </div>
