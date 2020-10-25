@@ -78,7 +78,7 @@ export default class App extends Component {
                   type="text" className="form-control" value={this.state.value}
                   onChange={(value) => this.domain(value.target.value)}
                   placeholder="domain.com"/>
-                <Spinner animation="border" role="status" style={{display:'none'}} className="loading">
+                <Spinner animation="border" role="status" style={{display:'none', marginTop:"30px"}} className="loading">
                   <span className="sr-only">Loading...</span>
                 </Spinner>
               </div>
